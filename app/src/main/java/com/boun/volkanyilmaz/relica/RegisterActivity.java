@@ -111,6 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
     }
+    // Create animated image
     public void animations() {
         setContentView(R.layout.activity_register);
         ImageView image = findViewById(R.id.imageRegister);
