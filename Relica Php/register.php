@@ -45,7 +45,7 @@ if ($result){
 
     // Store user infos and return as JSON type
     $returnArray["status"] = "200";
-    $returnArray["message"] = "Registration succesfull!";
+    $returnArray["message"] = "Registration successfull!";
     $returnArray["id"] = $user["id"];
     $returnArray["username"] = $user["username"];
     $returnArray["mail"] = $user["mail"];
