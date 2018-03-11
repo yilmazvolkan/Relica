@@ -34,6 +34,56 @@ class access{
         if ($this->conn!=null)
             $this->conn->close();
     }
+    // Register of users
+    public function registerUser($username, $safe_password, $salt, $mail, $fullname)
+    {
+        // SQL query
+        $sql = "INSERT INTO kisiler SET username=?, password=?, salt=?, mail=?, fullname=?";
+
+        // Preperation for result of query
+        $statement = $this->conn->prepare($sql);
+
+        // Throw error
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // Attach values for SQL
+        $statement->bind_param("sssss", $username, $safe_password, $salt, $mail, $fullname);
+
+        // Run query
+        $returnValue = $statement->execute();
+
+        return $returnValue;
+
+    }
+
+    // Get user infos
+    public function selectUser($username)
+    {
+        $returArray = array();
+
+        // SQL query
+        $sql = "SELECT * FROM users WHERE username='".$username."'";
+
+        // Result of SQL query
+        $result = $this->conn->query($sql);
+
+        // If there it is not null
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // Store associated row at $row 
+            // MYSQLI_ASSOC => Index values are column names at database
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+
+            if (!empty($row)) {
+                $returArray = $row;
+            }
+
+        }
+
+        return $returArray;
+    }
 }
 
 ?>
