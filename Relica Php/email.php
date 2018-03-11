@@ -32,5 +32,21 @@ class email{
         return $sablon;
 
     }
+    function sendEmail($detay) {
+
+        $subject = $detay["subject"]; //subject
+        $whom = $detay["whom"]; //to
+        $fromName = $detay["fromName"]; //gönderici ismi
+        $fromEmail = $detay["fromEmail"]; //gönderici mail adresi
+        $body = $detay["body"]; //gövde
+
+        // Headers
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;content=UTF-8" . "\r\n";
+        $headers .= "From: " . $fromName . " <" . $fromEmail . ">" . "\r\n";
+
+        // Send email
+        mail($whom, $subject, $body, $headers);
+    }
 }
 ?>
