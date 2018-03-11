@@ -52,7 +52,22 @@ if ($result){
     $returnArray["fullname"] = $user["fullname"];
     $returnArray["avatar"] = $user["avatar"];
 
+    require ("email.php");
+    $email=new email();
+    $token=$email->createToken(20);
+    $access->saveToken($token,$user["id"]);
 
+    //mail gönderilecek
+    $detay=array();
+    $detay["subject"]="Mail verification for Relica.";
+    $detay["whom"]=$user["mail"];
+    $detay["fromName"]="Relica";
+    $detay["fromEmail"]="volkan.yilmazboun@gmail.com"; // it should be changed
+
+    $sablon=$email->verificationTemplate();
+    $sablon=str_replace("{token}",$token,$sablon);
+    $detay["body"]=$sablon;
+    $email->sendEmailPhpMailer($detay);
 
 
 }else {
