@@ -48,5 +48,38 @@ class email{
         // Send email
         mail($whom, $subject, $body, $headers);
     }
+    
+    function sendEmailPhpMailer($detay){
+
+        $subject = $detay["konu"]; //subject
+        $whom = $detay["kime"]; //to
+        $body = $detay["body"]; //gövde
+        $fromName = $detay["fromName"]; //sender name
+
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->CharSet = 'UTF-8';
+        $mail->Host = "smtp.gmail.com";
+        $mail->SMTPDebug = 0;
+        $mail->SMTPAuth = true;
+        $mail->Port = 587;
+        $mail->Username = "volkan.yilmazboun@gmail.com";
+        $mail->Password = "denemesifresi";
+        $mail->SMTPSecure = 'tlf';
+        $mail->SetFrom($mail->Username, $fromName);
+        $mail->isHTML(true);
+
+        $mail->Subject = $subject;
+        $mail->MsgHTML($body);
+        $mail->AddAddress($whom);
+
+
+        if (!$mail->Send()) {
+            //echo "Error: " . $mail->ErrorInfo;
+        } else {
+            //echo "Mail sent!";
+        }
+
+    }
 }
 ?>
