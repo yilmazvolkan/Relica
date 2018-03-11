@@ -87,7 +87,7 @@ class access{
     public function saveToken($token, $id)
     {
         // sql query
-        $sql = "INSERT INTO emailtokens SET id=?, token=?";
+        $sql = "INSERT INTO emailTokens SET id=?, token=?";
 
         // preparation for result of query
         $statement = $this->conn->prepare($sql);
