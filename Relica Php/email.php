@@ -7,7 +7,7 @@ require 'PHPMailer/PHPMailerAutoload.php';
 
 class email{
 
-    function CreateToken($length){
+    function createToken($length){
 
         $chars="qwertyuopasdfghjklzxcvbnmiQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
         $numberOfChars=strlen($chars);
