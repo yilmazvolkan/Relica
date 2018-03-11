@@ -19,5 +19,18 @@ class email{
         }
         return $token;
     }
+    function verificationTemplate() {
+
+        // Open file in the main project folder
+        $file = fopen("templates/emailVerificationTemplate.html", "r") or die("File openning failed.");
+
+        // Save content in $template
+        $sablon = fread($file, filesize("templates/emailVerificationTemplate.html"));
+
+        fclose($file);
+
+        return $sablon;
+
+    }
 }
 ?>
