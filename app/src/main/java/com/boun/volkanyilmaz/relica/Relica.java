@@ -63,6 +63,17 @@ public class Relica extends AppCompatActivity
     private static final String url_profile_info = "http://10.0.2.2/Relica/profileInfo.php";
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (preferences.getBoolean("ProfilChanged", false)) {
+            setProfilBilgileri(preferences.getString("id", "-1"));
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("ProfilChanged", false);
+            editor.commit();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relica);
@@ -198,6 +209,72 @@ public class Relica extends AppCompatActivity
         viewPager.setAdapter(adapter);
     }
 
+    private void setProfilBilgileri(final String id) {
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_profile_info, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Json verisi", response);
+
+                String status = "", message = "", fullname = "", avatar = "", mail = "";
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    status = jsonObject.getString("status");
+                    message = jsonObject.getString("message");
+                    avatar = jsonObject.getString("avatar");
+                    fullname = jsonObject.getString("fullname");
+                    mail = jsonObject.getString("mail");
+
+                } catch (JSONException e) {
+                    Log.e("Json parse hatası", e.getLocalizedMessage());
+                }
+
+                if (status.equals("200")) {
+                    setProfile(fullname, mail, avatar);
+                } else {
+                    Snackbar.make(findViewById(R.id.fab), message, Snackbar.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> degerler = new HashMap<>();
+                degerler.put("id", id);
+                return degerler;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+
+    }
+
+    private void setProfile(String fullname, String mail, String avatar) {
+        Log.d("AVATAR", avatar);
+
+        Picasso.Builder builder = new Picasso.Builder(getApplicationContext());
+        builder.listener(new Picasso.Listener() {
+            @Override
+            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                Log.e("Picasso error.", exception.getLocalizedMessage());
+            }
+        });
+        Picasso pic = builder.build();
+        pic.load(avatar).into(profilFoto);
+
+        this.fullname.setText(fullname);
+        this.mail.setText(mail);
+
+    }
+
+
 
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -237,68 +314,4 @@ public class Relica extends AppCompatActivity
         }
     }
 
-    private void setProfilBilgileri(final String id) {
-
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_profile_info, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("Json verisi", response);
-
-                String status = "", message = "", fullname = "", avatar = "", mail = "";
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    status = jsonObject.getString("status");
-                    message = jsonObject.getString("message");
-                    avatar = jsonObject.getString("avatar");
-                    fullname = jsonObject.getString("fullname");
-                    mail = jsonObject.getString("mail");
-
-                } catch (JSONException e) {
-                    Log.e("Json parse hatası", e.getLocalizedMessage());
-                }
-
-                if (status.equals("200")) {
-                    setProfil(fullname, mail, avatar);
-                } else {
-                    Snackbar.make(findViewById(R.id.fab), message, Snackbar.LENGTH_LONG).show();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> degerler = new HashMap<>();
-                degerler.put("id", id);
-                return degerler;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);
-
-    }
-
-    private void setProfil(String fullname, String mail, String avatar) {
-        Log.d("AVATAR", avatar);
-
-        Picasso.Builder builder = new Picasso.Builder(getApplicationContext());
-        builder.listener(new Picasso.Listener() {
-            @Override
-            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                Log.e("Picasso error.", exception.getLocalizedMessage());
-            }
-        });
-        Picasso pic = builder.build();
-        pic.load(avatar).into(profilFoto);
-
-        this.fullname.setText(fullname);
-        this.mail.setText(mail);
-
-    }
 }

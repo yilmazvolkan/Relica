@@ -41,6 +41,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Relica" />
         </activity>
+        <activity
+            android:name=".SendMemory"
+            android:label="@string/title_activity_send_memory"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Relica" />
+
+        </activity>
     </application>
 
 </manifest>
