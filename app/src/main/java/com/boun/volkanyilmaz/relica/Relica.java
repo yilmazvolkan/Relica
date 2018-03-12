@@ -1,6 +1,7 @@
 package com.boun.volkanyilmaz.relica;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -33,6 +34,7 @@ import com.android.volley.toolbox.Volley;
 import com.boun.volkanyilmaz.relica.Fragments.HomeFragment;
 import com.boun.volkanyilmaz.relica.Fragments.MessagesFragment;
 import com.boun.volkanyilmaz.relica.Fragments.NotificationsFragment;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,6 +59,7 @@ public class Relica extends AppCompatActivity
             R.drawable.ic_forum_24dp
     };
     private SharedPreferences preferences;
+    private static final String url_profile_info = "http://10.0.2.2/Relica/profileInfo.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,28 +234,28 @@ public class Relica extends AppCompatActivity
     private void setProfilBilgileri(final String id) {
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_profil_bilgileri, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_profile_info, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("Json verisi", response);
 
-                String durum = "", mesaj = "", adsoyad = "", avatar = "", mail = "";
+                String status = "", message = "", fullname = "", avatar = "", mail = "";
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    durum = jsonObject.getString("status");
-                    mesaj = jsonObject.getString("mesaj");
+                    status = jsonObject.getString("status");
+                    message = jsonObject.getString("message");
                     avatar = jsonObject.getString("avatar");
-                    adsoyad = jsonObject.getString("adsoyad");
+                    fullname = jsonObject.getString("fullname");
                     mail = jsonObject.getString("mail");
 
                 } catch (JSONException e) {
                     Log.e("Json parse hatası", e.getLocalizedMessage());
                 }
 
-                if (durum.equals("200")) {
-                    setProfil(adsoyad, mail, avatar);
+                if (status.equals("200")) {
+                    setProfil(fullname, mail, avatar);
                 } else {
-                    Snackbar.make(findViewById(R.id.fab), mesaj, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.fab), message, Snackbar.LENGTH_LONG).show();
                 }
 
             }
@@ -272,6 +275,24 @@ public class Relica extends AppCompatActivity
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
+
+    }
+
+    private void setProfil(String fullname, String mail, String avatar) {
+        Log.d("AVATAR", avatar);
+
+        Picasso.Builder builder = new Picasso.Builder(getApplicationContext());
+        builder.listener(new Picasso.Listener() {
+            @Override
+            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                Log.e("Picasso error.", exception.getLocalizedMessage());
+            }
+        });
+        Picasso pic = builder.build();
+        pic.load(avatar).into(profilFoto);
+
+        this.fullname.setText(fullname);
+        this.mail.setText(mail);
 
     }
 }
