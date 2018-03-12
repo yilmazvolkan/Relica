@@ -157,8 +157,7 @@ public class Relica extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_profile) {
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -229,5 +228,50 @@ public class Relica extends AppCompatActivity
         }
     }
 
+    private void setProfilBilgileri(final String id) {
 
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_profil_bilgileri, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Json verisi", response);
+
+                String durum = "", mesaj = "", adsoyad = "", avatar = "", mail = "";
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    durum = jsonObject.getString("status");
+                    mesaj = jsonObject.getString("mesaj");
+                    avatar = jsonObject.getString("avatar");
+                    adsoyad = jsonObject.getString("adsoyad");
+                    mail = jsonObject.getString("mail");
+
+                } catch (JSONException e) {
+                    Log.e("Json parse hatası", e.getLocalizedMessage());
+                }
+
+                if (durum.equals("200")) {
+                    setProfil(adsoyad, mail, avatar);
+                } else {
+                    Snackbar.make(findViewById(R.id.fab), mesaj, Snackbar.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> degerler = new HashMap<>();
+                degerler.put("id", id);
+                return degerler;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+
+    }
 }
