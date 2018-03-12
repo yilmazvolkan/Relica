@@ -84,6 +84,27 @@ class access{
 
         return $returArray;
     }
+    public function saveToken($token, $id)
+    {
+        // sql query
+        $sql = "INSERT INTO emailTokens SET id=?, token=?";
+
+        // preparation for result of query
+        $statement = $this->conn->prepare($sql);
+
+        // error
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // attach values for sql 
+        $statement->bind_param("is", $id, $token);
+
+        // run query
+        $returnValue = $statement->execute();
+
+        return $returnValue;
+    }
 }
 
 ?>

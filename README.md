@@ -22,6 +22,10 @@ This is the outlook of some possible memories. Users can share them with a story
     <img src="https://raw.githubusercontent.com/bounswe/bounswe2018group1/master/resources/trolleybus_intro.png" width="540" height="240">
 </p>
 
+## :bell: Before You Run
+
+It is required to add PHPMailer project to send mail since it is in local, sending verification mail throws errors.
+You can reach the project via this [link](https://github.com/PHPMailer/PHPMailer). After you download the project, you need to unzip the file, then transport 'PHPMailer' folder into your project folder, Relica PHP.
 
 ## :beers: Contributors
 
