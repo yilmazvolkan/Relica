@@ -54,9 +54,9 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         androidTools();
         animations();
-        //If remember me is active pass to new activity
+        //If remember me is active, pass to new activity
         if (preferences.getBoolean("rememberMe", false)) {
-            //startActivity(new Intent(LoginActivity.this, ??));
+            startActivity(new Intent(LoginActivity.this, Relica.class));
             LoginActivity.this.finish();
         }
         if (!connectionControl()) {

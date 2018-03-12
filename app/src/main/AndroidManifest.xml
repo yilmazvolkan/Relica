@@ -29,7 +29,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".RegisterActivity" />
         </activity>
-        <activity android:name=".Relica"></activity>
+        <activity
+            android:name=".Relica"
+            android:label="@string/title_activity_relica"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
