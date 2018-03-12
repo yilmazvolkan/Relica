@@ -97,16 +97,16 @@ public class RegisterActivity extends AppCompatActivity {
                 if (isFullname || isMail || isPassword || isUsername || !mail.getText().toString().contains("@")) {
 
                     if (isFullname)
-                        tilFullname.setError("Lütfen ad ve soyadınızı giriniz");
+                        tilFullname.setError("Please write your fullname.");
                     if (isPassword)
-                        tilPass.setError("Lütfen şifrenizi giriniz");
+                        tilPass.setError("Please write your password.");
                     if (isUsername)
-                        tilUsername.setError("Lütfen kullanıcı adınızı giriniz");
+                        tilUsername.setError("Please write your username.");
 
                     if (isMail)
-                        tilMail.setError("Lütfen mail adresinizi giriniz");
+                        tilMail.setError("Please write your mail.");
                     else if (!mail.getText().toString().contains("@"))
-                        tilMail.setError("Lütfen geçerli bir mail adresi giriniz");
+                        tilMail.setError("Mail adress is not valid!");
 
                 } else {
                     if (!connectionControl()) {
@@ -171,7 +171,7 @@ public class RegisterActivity extends AppCompatActivity {
                     } else if (status.equals("400")) {
                         Snackbar.make(findViewById(R.id.rootRegister), "Registration unsuccessful. Username is already exist.", Snackbar.LENGTH_LONG).show();
                     } else if (status.equals("200")) {
-                        //preferences.edit().putString("id", id).commit();
+                        //preferences.edit().putString("id", id).commit(); we need to verification of email
                         new AlertDialog.Builder(RegisterActivity.this)
                                 .setMessage("Registration successful! Check your mailbox.")
                                 .setPositiveButton("Success", new DialogInterface.OnClickListener() {
