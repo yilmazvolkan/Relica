@@ -105,6 +105,121 @@ class access{
 
         return $returnValue;
     }
+    
+     // Get username by token
+    function getUserId($token) {
+
+        $returnArray = array();
+
+        // sql query
+        $sql = "SELECT id FROM emailTokens WHERE token = '".$token."'";
+
+        // Preparation of results of query
+        $result = $this->conn->query($sql);
+
+        // If result is non-empty
+        if ($result != null && (mysqli_num_rows($result) >= 1)) {
+
+            // Transform result to assoc array and save at $row 
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+
+        return $returnArray;
+
+    }
+
+    //emailonay  durumunu değiştir
+    function changeStatusEmail($id,$status) {
+
+        $sql = "UPDATE users SET emailVerification=? WHERE id=?";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->bind_param("ii",$status, $id);
+
+        $returnValue = $statement->execute();
+
+        return $returnValue;
+
+    }
+
+
+    // After email verification, tokon will be deleted
+    function deleteToken($token) {
+
+        $sql = "DELETE FROM emailTokens WHERE token=?";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->bind_param("s", $token);
+
+        $returnValue = $statement->execute();
+
+        return $returnValue;
+
+    }
+
+
+    // Profile picture path is saved on database
+    function updateProfileFotoPath($path, $id) {
+
+        // sql instruction
+        $sql = "UPDATE users SET avatar=? WHERE id=?";
+
+        // preparation for result of query
+        $statement = $this->conn->prepare($sql);
+
+        // error case
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // connect parameters to sql
+        $statement->bind_param("si", $path, $id);
+
+        // add return
+        $returnValue = $statement->execute();
+
+        return $returnValue;
+
+    }
+
+
+    // Get user infos according to Id
+    public function selectUserIdyeGore($id) {
+
+        $returnArray = array();
+
+        // sql instruction
+        $sql = "SELECT * FROM kisiler WHERE id='".$id."'";
+
+        //  add outcome to $result
+        $result = $this->conn->query($sql);
+
+        // conditions
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // Transform result to assoc array and save at $row 
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+
+        }
+
+        return $returnArray;
+
+    }
 }
 
 ?>
