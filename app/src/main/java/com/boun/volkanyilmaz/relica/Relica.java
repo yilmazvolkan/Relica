@@ -1,5 +1,6 @@
 package com.boun.volkanyilmaz.relica;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -160,20 +161,25 @@ public class Relica extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profile) {
+        if (id == R.id.profil_menu) {
+            startActivity(new Intent(Relica.this, ProfileActivity.class));
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.signOut) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(Relica.this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("rememberMe", false);
+            editor.putString("id", "-1");
+            editor.commit();
+            startActivity(new Intent(Relica.this, LoginActivity.class));
+            this.finish();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
