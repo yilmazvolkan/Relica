@@ -1,16 +1,20 @@
 ## Relica
 
 <p align="center">
+    <a href="https://github.com/yilmazvolkan/Relica/blob/master/LICENSE">
+        <img src="https://img.shields.io/badge/LICENCE-Online-e4616e.svg"
+             alt="Licence">
+    </a>
     <a href="https://github.com/yilmazvolkan/Relica/tree/master/app/src/main">
-        <img src="https://img.shields.io/badge/ANDROID-UP%20TO%20DATE-e97e89.svg"
+        <img src="https://img.shields.io/badge/ANDROID-UP%20TO%20DATE-dd3547.svg"
              alt="Android">
     </a>
     <a href="https://github.com/yilmazvolkan/Relica/tree/master/Relica%20Php">
-        <img src="https://img.shields.io/badge/PHP-UP TO DATE-e15361.svg"
+        <img src="https://img.shields.io/badge/PHP-UP TO DATE-bf2131.svg"
              alt="PHP">
     </a>
     <a href="https://github.com/yilmazvolkan/Relica/issues?q=is%3Aissue+is%3Aclosed">
-        <img src="https://img.shields.io/badge/ISSUES 23-CLOSED-76141e.svg"
+        <img src="https://img.shields.io/badge/ISSUES 35-CLOSED-931926.svg"
              alt="Issues">
     </a>
 </p>
