@@ -8,11 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -22,8 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.boun.volkanyilmaz.relica.Adapter;
 import com.boun.volkanyilmaz.relica.MemoryModel;
-import com.boun.volkanyilmaz.relica.MyAdapter;
 import com.boun.volkanyilmaz.relica.R;
 
 import org.json.JSONArray;
@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     private String id;
     private Context context;
     private List<MemoryModel> modelList;
-    private RecyclerView recyclerView;
+    private ListView listView;
     private TextView textView;
     private SwipeRefreshLayout refreshLayout;
 
@@ -63,8 +63,9 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        recyclerView = ((AppCompatActivity) context).findViewById(R.id.listTweet);
+        listView = ((AppCompatActivity) context).findViewById(R.id.listview);
         textView = ((AppCompatActivity) context).findViewById(R.id.textView3);
+        refreshLayout = ((AppCompatActivity) context).findViewById(R.id.refresh);
         modelList = new ArrayList<>();
         id = getArguments().getString("id");
 
@@ -127,7 +128,7 @@ public class HomeFragment extends Fragment {
 
                 } else {
                     //request failed
-                    Snackbar.make(recyclerView, message, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(listView, message, Snackbar.LENGTH_LONG).show();
                 }
                 Log.d("Volley operations test", "request operations completed.........................");
                 if (modelList == null) {
@@ -152,15 +153,14 @@ public class HomeFragment extends Fragment {
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-
+        requestQueue.add(request);
 
     }
 
     private void setAdapter() {
 
-        RecyclerView.Adapter mAdapter = new MyAdapter(modelList, context);
-        recyclerView.setAdapter(mAdapter);
-
+        Adapter adapter=new Adapter(context,modelList);
+        listView.setAdapter(adapter);
     }
 
 
@@ -207,11 +207,11 @@ public class HomeFragment extends Fragment {
 
                 } else {
                     //request failed
-                    Snackbar.make(recyclerView, message, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(listView, message, Snackbar.LENGTH_LONG).show();
                 }
                 Log.d("Volley operations test", "request operations completed.........................");
                 if (modelList == null) {
-                    textView.setText("Memory object cannot be null...");
+                    textView.setText("No memories can be found...");
                     setAdapter();
                 } else {
                     setAdapter();
