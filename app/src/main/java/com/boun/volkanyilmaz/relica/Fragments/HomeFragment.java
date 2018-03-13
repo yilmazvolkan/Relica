@@ -108,16 +108,17 @@ public class HomeFragment extends Fragment {
                 if (status.equals("200")) {
 
                     for (int i = 0; i < memories.length(); i++) {
-                        JSONObject tweet;
+                        JSONObject memory;
                         MemoryModel model = new MemoryModel();
                         try {
-                            tweet = memories.getJSONObject(i);
-                            model.setFullname(tweet.getString("fullname"));
-                            model.setUsername(tweet.getString("username"));
-                            model.setProfilePath(tweet.getString("avatar"));
-                            model.setImagePath(tweet.getString("path"));
-                            model.setMemoryText(tweet.getString("text"));
-                            model.setDate(tweet.getString("date"));
+                            memory = memories.getJSONObject(i);
+                            model.setFullname(memory.getString("fullname"));
+                            model.setUsername(memory.getString("username"));
+                            model.setProfilePath(memory.getString("avatar"));
+                            model.setImagePath(memory.getString("path"));
+                            model.setMemoryText(memory.getString("text"));
+                            model.setDate(memory.getString("date"));
+                            model.setUuid(memory.getString("uuid"));
                         } catch (JSONException e) {
                             Log.e("json parse error", e.getLocalizedMessage());
                         }
@@ -197,6 +198,7 @@ public class HomeFragment extends Fragment {
                             model.setImagePath(memory.getString("path"));
                             model.setMemoryText(memory.getString("text"));
                             model.setDate(memory.getString("date"));
+                            model.setUuid(memory.getString("uuid"));
                         } catch (JSONException e) {
                             Log.e("json parse error", e.getLocalizedMessage());
                         }
