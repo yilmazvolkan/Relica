@@ -31,32 +31,31 @@ $path = "http://10.0.2.2/Relica/memories/" . $id . "/memory-" . $uuid . ".jpg"; 
 
 switch ($request_type) {
 	case '1':
-		//Only picture
-	      $returnArray=uploadImage();
+	  //Only picture
+	  $returnArray=uploadImage();
 
-        if ($returnArray["status"]=="200") {
-          $access->memory_save_picture($id, $uuid,$path);
-        }
-	     
-	break;
+          if ($returnArray["status"]=="200") {
+              $access->memory_save_picture($id, $uuid,$path);
+           }  
+	   break;
 
 	case '2':
-	//Only text
-	$text= htmlentities($_REQUEST["text"]);
-	$access->tweet_kaydet_text($id, $uuid, $text);
-	$returnArray["status"] = "200";
-      	$returnArray["message"] = "Memory saved successfully.";
-	break;
+	   //Only text
+	   $text= htmlentities($_REQUEST["text"]);
+	   $access->tweet_kaydet_text($id, $uuid, $text);
+	   $returnArray["status"] = "200";
+      	   $returnArray["message"] = "Memory saved successfully.";
+	   break;
 
 	case '3':
-	//Both text and picture
-    	$text= htmlentities($_REQUEST["text"]);
-    	$returnArray=uploadImage();
+	   //Both text and picture
+    	   $text= htmlentities($_REQUEST["text"]);
+    	   $returnArray=uploadImage();
     
-    	if ($returnArray["status"]=="200") {
-      	    $access->memory_save_text_picture($id, $uuid, $text, $path);
-        }
-	break;
+    	   if ($returnArray["status"]=="200") {
+      	       $access->memory_save_text_picture($id, $uuid, $text, $path);
+           }
+	   break;
 }
 
 function uploadImage()
