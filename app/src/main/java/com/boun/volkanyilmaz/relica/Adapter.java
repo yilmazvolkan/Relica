@@ -63,7 +63,7 @@ public class Adapter extends BaseAdapter {
         TextView username = layout.findViewById(R.id.textView6);
         TextView dateTv = layout.findViewById(R.id.textView5);
         TextView textTv = layout.findViewById(R.id.text);
-        CircleImageView circleImageView = layout.findViewById(R.id.profile_image_memory;
+        CircleImageView circleImageView = layout.findViewById(R.id.profile_image_memory);
         ImageView imImageView = layout.findViewById(R.id.imageView);
 
         MemoryModel memory = modelList.get(position);
