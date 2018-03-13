@@ -11,7 +11,7 @@ if (empty($_REQUEST["id"]) || empty($_REQUEST["uuid"]) || empty($_REQUEST["reque
 
 $id = htmlentities($_REQUEST["id"]);
 $uuid= htmlentities($_REQUEST["uuid"]);
-$istek_turu= htmlentities($_REQUEST["request_type"]);
+$request_type= htmlentities($_REQUEST["request_type"]);
 
 //Connection to database
 require ("access.php");
@@ -38,33 +38,30 @@ switch ($request_type) {
           $access->memory_save_picture($id, $uuid,$path);
         }
 	     
-		break;
+	break;
 
-		case '2':
-		  //Only text
-		  $text= htmlentities($_REQUEST["text"]);
-	    $access->tweet_kaydet_text($id, $uuid, $text);
-	    $returnArray["status"] = "200";
-      $returnArray["message"] = "Memory saved successfully.";
-		break;
+	case '2':
+	//Only text
+	$text= htmlentities($_REQUEST["text"]);
+	$access->tweet_kaydet_text($id, $uuid, $text);
+	$returnArray["status"] = "200";
+      	$returnArray["message"] = "Memory saved successfully.";
+	break;
 
-		case '3':
-		//Both text and picture
-    $text= htmlentities($_REQUEST["text"]);
-    $returnArray=uploadImage();
+	case '3':
+	//Both text and picture
+    	$text= htmlentities($_REQUEST["text"]);
+    	$returnArray=uploadImage();
     
-    
-    if ($returnArray["status"]=="200") {
-      $access->memory_save_text_picture($id, $uuid, $text, $path);
-      }
-		
-
-		break;
+    	if ($returnArray["status"]=="200") {
+      	    $access->memory_save_text_picture($id, $uuid, $text, $path);
+        }
+	break;
 }
 
 function uploadImage()
 {
-	     $resim= htmlentities($_REQUEST["c"]);
+       $picture= htmlentities($_REQUEST["c"]);
        $id = htmlentities($_REQUEST["id"]);
        $uuid= htmlentities($_REQUEST["uuid"]);
        $returnArray=array();
@@ -72,11 +69,10 @@ function uploadImage()
        // Crate folder named id for user.
        $folder = "C:/xampp/htdocs/Relica/memories/" . $id;
 
-
-           // If it does not exist, create
-           if (!file_exists($folder)) {
-              mkdir($folder, 0777,true);
-                 }
+       // If it does not exist, create
+       if (!file_exists($folder)) {
+           mkdir($folder, 0777,true);
+       }
 
        
        $resim_yukleme_yolu="memories/" . $id. "/memory-" . $uuid . ".jpg";
@@ -84,16 +80,14 @@ function uploadImage()
        //Upload profile picture
        $result=file_put_contents($resim_yukleme_yolu,base64_decode($picture));
 
-          if ($result) {
+        if ($result) {
             $returnArray["status"] = "200";
-            $returnArray["message"] = "Memory image has been successfully uploaded.";
-         	
-             }else{
-	        $returnArray["status"] = "300";
-          $returnArray["message"] = "Memory image couldn't upload.";
-           
-          }
-
+            $returnArray["message"] = "Memory image has been successfully uploaded.";	
+        }
+	else{
+	    $returnArray["status"] = "300";
+            $returnArray["message"] = "Memory image couldn't upload."; 
+        }
         return $returnArray;
 
 }
