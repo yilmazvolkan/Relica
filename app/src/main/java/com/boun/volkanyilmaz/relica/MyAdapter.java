@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 import com.android.volley.toolbox.ImageLoader;
@@ -19,6 +19,11 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -76,10 +81,41 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
         }
 
 
+        Date present=new Date();
+
+        DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date=null;
+        try {
+            date=df.parse(memory.getDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        int differ= (int) (present.getTime()-date.getTime());
+
+        int day = differ/(1000*60*60*24);
+        int hour = differ/(1000*60*60);
+        int minute = differ/(1000*60);
+        int second = differ/(1000);
+
+        if (second==0)
+            holder.dateTv.setText("present");
+
+        if (second>0 && minute==0)
+            holder.dateTv.setText(second+"s");
+
+        if (minute>0 && hour==0)
+            holder.dateTv.setText(minute+"min");
+
+        if (hour>0 && day==0)
+            holder.dateTv.setText(hour+"h");
+
+        if (day>0)
+            holder.dateTv.setText(day+"day");
 
 
+        Log.d("position:::::::: ",String.valueOf(position));
 
-        Log.d("pozisyon:::::::: ",String.valueOf(position));
 
 
     }
