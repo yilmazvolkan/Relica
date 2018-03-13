@@ -1,6 +1,19 @@
 ## Relica
 
-
+<p align="center">
+    <a href="https://github.com/yilmazvolkan/Relica/tree/master/app/src/main">
+        <img src="https://img.shields.io/badge/ANDROID-UP%20TO%20DATE-e97e89.svg"
+             alt="Android">
+    </a>
+    <a href="https://github.com/yilmazvolkan/Relica/tree/master/Relica%20Php">
+        <img src="https://img.shields.io/badge/PHP-UP TO DATE-e15361.svg"
+             alt="PHP">
+    </a>
+    <a href="https://github.com/yilmazvolkan/Relica/issues?q=is%3Aissue+is%3Aclosed">
+        <img src="https://img.shields.io/badge/ISSUES 23-CLOSED-76141e.svg"
+             alt="Issues">
+    </a>
+</p>
 
 
 ## :tophat: A Living History - A Crowdsourcing Platform

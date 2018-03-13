@@ -220,6 +220,76 @@ class access{
         return $returnArray;
 
     }
+    //Insert memory only text
+    public function memory_save_text($id, $uuid, $text) {
+        
+        // sql query
+        $sql = "INSERT INTO memories SET id=?, uuid=?, text=?";
+        
+        // preparation
+        $statement = $this->conn->prepare($sql);
+
+        // catch error
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // enter parameters
+        $statement->bind_param("iss", $id, $uuid, $text);
+
+        // run query and add result to $returnValue 
+        $returnValue = $statement->execute();
+
+        return $returnValue;
+
+    }
+    // Insert memory only picture
+    public function memory_save_picture($id, $uuid, $path) { //
+        
+        // sql query
+        $sql = "INSERT INTO memories SET id=?, uuid=?, path=?";
+        
+        // preparation
+        $statement = $this->conn->prepare($sql);
+
+        // catch error
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // enter parameters
+        $statement->bind_param("iss", $id, $uuid, $path);
+
+        // run query and add result to $returnValue 
+        $returnValue = $statement->execute();
+
+        return $returnValue;
+
+    }
+    // Insert memory text ve picture
+    public function memory_save_text_picture($id, $uuid, $text, $path){  //
+        
+        // sql query
+        $sql = "INSERT INTO memories SET id=?, uuid=?, text=?, path=?";
+        
+        // preparation
+        $statement = $this->conn->prepare($sql);
+
+        // catch error
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // enter parameters
+        $statement->bind_param("isss", $id, $uuid, $text, $path);
+
+        // run query and add result to $returnValue
+        $returnValue = $statement->execute();
+
+        return $returnValue;
+
+    }
+
 }
 
 ?>
