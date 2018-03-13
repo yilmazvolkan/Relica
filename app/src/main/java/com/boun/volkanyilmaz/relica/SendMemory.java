@@ -149,7 +149,7 @@ public class SendMemory extends AppCompatActivity {
                 Log.d("Json data: ", response);
                 loading.dismiss();
 
-                String status=null, message=null;
+                String status = null, message = null;
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     status = jsonObject.getString("status");
@@ -158,13 +158,12 @@ public class SendMemory extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if (status.equals("200")){
+                if (status.equals("200")) {
                     Snackbar.make(findViewById(R.id.floatingActionButtonTweetle), "Memory has been posted successfully!", Snackbar.LENGTH_LONG).show();
                     text.setText("");
                     picture.setImageBitmap(null);
 
-                }else
-                {
+                } else {
                     Snackbar.make(findViewById(R.id.floatingActionButtonTweetle), message, Snackbar.LENGTH_LONG).show();
                 }
 
@@ -190,7 +189,7 @@ public class SendMemory extends AppCompatActivity {
 
                         // Add parameters
                         params.put("id", id);
-                        params.put("uuid", uuid);
+                        params.put("uuid", uuid); // Universal unique identifier consists of 32 chars
                         params.put("picture", image);
                         params.put("request_type", String.valueOf(ONLY_PICTURE));
                         break;

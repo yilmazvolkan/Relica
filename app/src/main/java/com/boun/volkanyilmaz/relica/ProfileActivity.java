@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String id;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Bitmap bitmap;
-    private static final String url_profil_guncelle = "http://10.0.2.2/TwitterClone/profilFotoYukle.php";
+    private static final String url_profile_update = "http://10.0.2.2/TwitterClone/profilFotoYukle.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
 
                         if (item.getTitle() == "Gallery") {
-                            resimSecmeIstegi();
+                            requestChooseImage();
                         }
 
                         if (item.getTitle() == "Camera") {
@@ -80,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
         return encodedImage;
     }
 
-    private void resimSecmeIstegi() {
+    private void requestChooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -103,10 +103,10 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void profiliGuncellemeIstegiGonder() {
+    private void sendRequestToUpdateProfile() {
         final ProgressDialog loading = ProgressDialog.show(ProfileActivity.this, "Profile updating...", "Please wait...", false, false);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_profil_guncelle, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_profile_update, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 loading.dismiss();
@@ -129,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
                     Snackbar.make(findViewById(R.id.containerProfile), message, Snackbar.LENGTH_LONG).show();
                     SharedPreferences p= PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
                     SharedPreferences.Editor editor=p.edit();
-                    editor.putBoolean("ProfilChanged",true);
+                    editor.putBoolean("ProfileChanged",true);
                     editor.commit();
                 } else {
                     Snackbar.make(findViewById(R.id.containerProfile), message, Snackbar.LENGTH_LONG).show();
@@ -165,7 +165,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         if (bitmap != null) {
-            profiliGuncellemeIstegiGonder();
+            sendRequestToUpdateProfile();
         } else {
             Snackbar.make(findViewById(R.id.containerProfile), "Pick an image...", Snackbar.LENGTH_LONG).show();
         }

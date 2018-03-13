@@ -50,7 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Relica extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TextView fullname, mail;
-    private CircleImageView profilFoto;
+    private CircleImageView profileFoto;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private String id;
@@ -63,12 +63,12 @@ public class Relica extends AppCompatActivity
     private static final String url_profile_info = "http://10.0.2.2/Relica/profileInfo.php";
 
     @Override
-    protected void onResume() {
+    protected void onResume() {  // To control navigator menu profile changes
         super.onResume();
-        if (preferences.getBoolean("ProfilChanged", false)) {
-            setProfilBilgileri(preferences.getString("id", "-1"));
+        if (preferences.getBoolean("ProfileChanged", false)) {
+            setProfileInfo(preferences.getString("id", "-1"));
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("ProfilChanged", false);
+            editor.putBoolean("ProfileChanged", false);
             editor.commit();
         }
     }
@@ -109,10 +109,10 @@ public class Relica extends AppCompatActivity
         LinearLayout layout = (LinearLayout) navigationView.getHeaderView(0);
         fullname = layout.findViewById(R.id.fullname);
         mail = layout.findViewById(R.id.mail);
-        profilFoto = layout.findViewById(R.id.profile_image);
+        profileFoto = layout.findViewById(R.id.profile_image);
         preferences = PreferenceManager.getDefaultSharedPreferences(Relica.this);
         id = preferences.getString("id", "-1");
-        setProfilBilgileri(id);
+        setProfileInfo(id);
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -209,13 +209,13 @@ public class Relica extends AppCompatActivity
         viewPager.setAdapter(adapter);
     }
 
-    private void setProfilBilgileri(final String id) {
+    private void setProfileInfo(final String id) {
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url_profile_info, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Json verisi", response);
+                Log.d("Json data", response);
 
                 String status = "", message = "", fullname = "", avatar = "", mail = "";
                 try {
@@ -227,7 +227,7 @@ public class Relica extends AppCompatActivity
                     mail = jsonObject.getString("mail");
 
                 } catch (JSONException e) {
-                    Log.e("Json parse hatası", e.getLocalizedMessage());
+                    Log.e("Json parse error", e.getLocalizedMessage());
                 }
 
                 if (status.equals("200")) {
@@ -245,9 +245,9 @@ public class Relica extends AppCompatActivity
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> degerler = new HashMap<>();
-                degerler.put("id", id);
-                return degerler;
+                Map<String, String> values = new HashMap<>();
+                values.put("id", id);
+                return values;
             }
         };
 
@@ -267,7 +267,7 @@ public class Relica extends AppCompatActivity
             }
         });
         Picasso pic = builder.build();
-        pic.load(avatar).into(profilFoto);
+        pic.load(avatar).into(profileFoto);
 
         this.fullname.setText(fullname);
         this.mail.setText(mail);
