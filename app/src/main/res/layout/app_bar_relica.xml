@@ -35,7 +35,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_edit_24dp" />
+        app:borderWidth="0dp"
+        app:backgroundTint="@android:color/holo_green_dark"
+        app:layout_anchorGravity="bottom|right|end"
+        android:clickable="true"
+        android:src="@drawable/post_icon" />
 
 
 </android.support.design.widget.CoordinatorLayout>

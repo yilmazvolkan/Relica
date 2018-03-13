@@ -46,12 +46,10 @@ public class Adapter extends BaseAdapter {
 
     private Context context;
     private List<MemoryModel> modelList;
-    private AppCompatActivity activity;
 
     public Adapter(Context context, List<MemoryModel> modelList) {
         this.modelList=modelList;
         this.context=context;
-        this.activity = (AppCompatActivity) context;
     }
 
     @Override
@@ -176,12 +174,12 @@ public class Adapter extends BaseAdapter {
 
                 //success
                 if (status.equals("200")) {
-                    Snackbar.make(activity.findViewById(R.id.listview), message, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(((AppCompatActivity) context).findViewById(R.id.listview), message, Snackbar.LENGTH_LONG).show();
                     modelList.remove(position); // Remove
                     notifyDataSetChanged();
                 } else {
                     //request failed
-                    Snackbar.make(activity.findViewById(R.id.listview), message, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(((AppCompatActivity) context).findViewById(R.id.listview), message, Snackbar.LENGTH_LONG).show();
                     layout.setAlpha(1);
                 }
 
