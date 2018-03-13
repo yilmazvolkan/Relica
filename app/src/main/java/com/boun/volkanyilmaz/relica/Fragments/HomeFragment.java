@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +22,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.boun.volkanyilmaz.relica.MemoryModel;
+import com.boun.volkanyilmaz.relica.MyAdapter;
 import com.boun.volkanyilmaz.relica.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +70,8 @@ public class HomeFragment extends Fragment {
         sendRequest();
 
 
+
+
         Log.d("Volley test", ".............................................");
 
 
@@ -77,10 +85,49 @@ public class HomeFragment extends Fragment {
                 loading.dismiss();
                 Log.d("Json data Memories: ", response);
 
-                String durum = null, mesaj = null;
+                String status = null, message = null;
+                JSONArray memories = null;
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    status = jsonObject.getString("status");
+                    message = jsonObject.getString("message");
+                    memories = jsonObject.getJSONArray("memories");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                Log.d("Volley işlemleri testi", "request işlemler tamamlandı.........................");
+                //success
+                if (status.equals("200")) {
 
+                    for (int i = 0; i < memories.length(); i++) {
+                        JSONObject tweet;
+                        MemoryModel model = new MemoryModel();
+                        try {
+                            tweet = memories.getJSONObject(i);
+                            model.setFullname(tweet.getString("fullname"));
+                            model.setUsername(tweet.getString("username"));
+                            model.setProfilePath(tweet.getString("avatar"));
+                            model.setImagePath(tweet.getString("path"));
+                            model.setMemoryText(tweet.getString("text"));
+                            model.setDate(tweet.getString("date"));
+                        } catch (JSONException e) {
+                            Log.e("json parse error", e.getLocalizedMessage());
+                        }
+
+                        modelList.add(model);
+
+                    }
+
+                } else {
+                    //request failed
+                    Snackbar.make(recyclerView, message, Snackbar.LENGTH_LONG).show();
+                }
+                Log.d("Volley operations test", "request operations completed.........................");
+                if (modelList == null) {
+                    textView.setText("No memories can be found...");
+                } else {
+                    setAdapter();
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -99,6 +146,14 @@ public class HomeFragment extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
+
+
+
+    }
+    private void setAdapter(){
+
+        RecyclerView.Adapter mAdapter = new MyAdapter(modelList,context);
+        recyclerView.setAdapter(mAdapter);
 
     }
 }
