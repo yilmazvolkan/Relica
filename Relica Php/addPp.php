@@ -3,7 +3,7 @@
 $returnArray=array();
 
 if (empty($_REQUEST["id"]) || empty($_REQUEST["profile"])) {
-    $returnArray["message"] = "Missing required information";
+    $returnArray["message"] = "Required information is missing.";
     $returnArray["status"] = "203";
     echo json_encode($returnArray);
     return;
@@ -15,7 +15,7 @@ $id = htmlentities($_REQUEST["id"]);
 
 
 
-// Creating id folder path for users 
+// Creating id folder path for users for Windows
 $folder = "C:/xampp/htdocs/Relica/users/" . $id;
 
 

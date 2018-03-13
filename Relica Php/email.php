@@ -64,7 +64,7 @@ class email{
         $mail->SMTPAuth = true;
         $mail->Port = 587;
         $mail->Username = "volkan.yilmazboun@gmail.com";
-        $mail->Password = "denemesifresi";
+        $mail->Password = "denemesifresi"; // Change it accordingly
         $mail->SMTPSecure = 'tlf';
         $mail->SetFrom($mail->Username, $fromName);
         $mail->isHTML(true);

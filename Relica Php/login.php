@@ -6,7 +6,7 @@ $returnArray=array();
 
 if (empty($_REQUEST["username"]) || empty($_REQUEST["password"])) {
     $returnArray["status"] = "203";
-    $returnArray["message"] = "Missing data!";
+    $returnArray["message"] = "Required information is missing.";
     echo json_encode($returnArray); // We can see info on Android via echo
     return;
 }
@@ -58,7 +58,7 @@ if ($user["emailVerification"]==1 && $safe_password==sha1($password . $salt)){
 }
 else if ($user["emailVerification"]==0){
     $returnArray["status"] = "401";
-    $returnArray["message"] = "You need to verify your mail.";
+    $returnArray["message"] = "You need to verify your e-mail.";
     echo json_encode($returnArray);
     return;
 }

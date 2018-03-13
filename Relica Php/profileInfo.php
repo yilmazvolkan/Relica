@@ -4,7 +4,7 @@ $returnArray=array();
 
 if (empty($_REQUEST["id"])) {
     $returnArray["status"] = "203";
-    $returnArray["message"] = "Missing required information";
+    $returnArray["message"] = "Required information is missing.";
     echo json_encode($returnArray);
     return;
 }

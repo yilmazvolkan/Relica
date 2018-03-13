@@ -38,7 +38,7 @@ class access{
     public function registerUser($username, $safe_password, $salt, $mail, $fullname)
     {
         // SQL query
-        $sql = "INSERT INTO kisiler SET username=?, password=?, salt=?, mail=?, fullname=?";
+        $sql = "INSERT INTO users SET username=?, password=?, salt=?, mail=?, fullname=?";
 
         // Preperation for result of query
         $statement = $this->conn->prepare($sql);
@@ -200,7 +200,7 @@ class access{
         $returnArray = array();
 
         // sql instruction
-        $sql = "SELECT * FROM kisiler WHERE id='".$id."'";
+        $sql = "SELECT * FROM users WHERE id='".$id."'";
 
         //  add outcome to $result
         $result = $this->conn->query($sql);
@@ -295,7 +295,7 @@ class access{
       
       //sql query
       $sql="SELECT memories.date, memories.id, memories.uuid, memories.path, 
-      memories.text, memories.fullname, memories.avatar, memories.id, memories.username, 
+      memories.text, memories.fullname, memories.avatar, memories.id, users.username, 
       users.mail FROM relica.memories JOIN relica.users ON memories.id=$id AND users.id=$id ORDER BY memories.date DESC LIMIT 50";
 
       // preparation of query

@@ -6,7 +6,7 @@ $returnArray=array();
 
 if (empty($_REQUEST["username"]) || empty($_REQUEST["password"]) || empty($_REQUEST["mail"]) || empty($_REQUEST["fullname"])) {
     $returnArray["status"] = "203";
-    $returnArray["message"] = "Missing data!";
+    $returnArray["message"] = "Required information is missing.";
     echo json_encode($returnArray); // We can see info on Android via echo 
     return;
 }
@@ -59,10 +59,10 @@ if ($result){
 
     //mail gönderilecek
     $detay=array();
-    $detay["subject"]="Mail verification for Relica.";
+    $detay["subject"]="Mail verification for Relica app.";
     $detay["whom"]=$user["mail"];
     $detay["fromName"]="Relica";
-    $detay["fromEmail"]="volkan.yilmazboun@gmail.com"; // it should be changed
+    $detay["fromEmail"]="volkan.yilmazboun@gmail.com"; // it should be changed later
 
     $sablon=$email->verificationTemplate();
     $sablon=str_replace("{token}",$token,$sablon);

@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String id;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Bitmap bitmap;
-    private static final String url_profile_update = "http://10.0.2.2/TwitterClone/profilFotoYukle.php";
+    private static final String url_profile_update = "http://10.0.2.2/Relica/addPp.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
