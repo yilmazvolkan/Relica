@@ -319,6 +319,29 @@ class access{
       return $returnArray;
     }
 
+    public function deleteMemory($uuid) {
+        // sql query
+        $sql = "INSERT INTO memories WHERE uuid=?;
+
+        // preparation of query
+        $statement = $this->conn->prepare($sql);
+        
+        // check error
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // run sql query
+        $statement->bind_param("s", $uuid);
+        $statement->execute();
+
+        // Take deleted how many rows affected 
+        $returnArray = $statement->affected_rows;
+
+        return $returnArray;
+
+    }
+
 }
 
 ?>

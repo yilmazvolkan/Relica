@@ -7,6 +7,7 @@ package com.boun.volkanyilmaz.relica;
 public class MemoryModel {
     private String fullname, username, profilePath, imagePath, memoryText;
     private String date;
+    private String uuid;
 
     public MemoryModel() {
         //boş yapıcı metod
@@ -68,5 +69,13 @@ public class MemoryModel {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }
