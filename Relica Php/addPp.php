@@ -2,7 +2,7 @@
 
 $returnArray=array();
 
-if (empty($_REQUEST["id"]) || empty($_REQUEST["profil"])) {
+if (empty($_REQUEST["id"]) || empty($_REQUEST["profile"])) {
     $returnArray["message"] = "Missing required information";
     $returnArray["status"] = "203";
     echo json_encode($returnArray);
@@ -52,7 +52,7 @@ $result=file_put_contents($resim_yukleme_yolu,base64_decode($profile));
 
 if ($result) {
 $returnArray["status"] = "200";
-$returnArray["message"] = "Pprofile picture has been successfully updated.";	
+$returnArray["message"] = "Profile picture has been successfully updated.";	
 }else{
 	 $returnArray["status"] = "300";
      $returnArray["message"] = "There was an error while loading the profile image.";
