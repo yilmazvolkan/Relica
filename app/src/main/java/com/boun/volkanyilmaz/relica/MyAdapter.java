@@ -23,7 +23,6 @@ public class MyAdapter extends RecyclerView.Adapter {
     private Context context;
 
     public MyAdapter(List<MemoryModel> modelList,Context c) {
-        //yapıcı metoda (Constructor) gelen context ve tweet bilgilerini sınıf değişkenlerine değer olarak atıyoruz
         this.modelList = modelList;
         this.context=c;
 
@@ -32,11 +31,10 @@ public class MyAdapter extends RecyclerView.Adapter {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        //LayoutInflater ile xml ile oluşturduğumuz layoutumuzu rootView isimli View nesnesine dönüştürüyoruz.
+        //Transform xml
         LinearLayout rootView = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.memory_list_item, parent, false);
 
-        //rootView i ViewHolder sınıfının yapıcı metoduna (Constructor) parametre olarak gönderiyoruz
         ViewHolder vh = new ViewHolder(rootView);
         return vh;
     }
