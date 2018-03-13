@@ -294,7 +294,9 @@ class access{
       $returnArray = array();
       
       //sql query
-      $sql="SELECT memories.date, memories.id, memories.uuid, memories.path, memories.text, memories.fullname, memories.avatar, memories.id, memories.username, users.mail FROM relica.memories JOIN relica.users ON memories.id=$id AND users.id=$id ORDER BY memories.date DESC LIMIT 50";
+      $sql="SELECT memories.date, memories.id, memories.uuid, memories.path, 
+      memories.text, memories.fullname, memories.avatar, memories.id, memories.username, 
+      users.mail FROM relica.memories JOIN relica.users ON memories.id=$id AND users.id=$id ORDER BY memories.date DESC LIMIT 50";
 
       // preparation of query
       $statement = $this->conn->prepare($sql);
