@@ -289,6 +289,35 @@ class access{
         return $returnValue;
 
     }
+    public function getUserMemories($id){
+
+      $returnArray = array();
+      
+      //sql query
+      $sql="SELECT memories.date, memories.id, memories.uuid, memories.path, 
+      memories.text, memories.fullname, memories.avatar, memories.id, memories.username, 
+      users.mail FROM relica.memories JOIN relica.users ON memories.id=$id AND users.id=$id ORDER BY memories.date DESC LIMIT 50";
+
+      // preparation of query
+      $statement = $this->conn->prepare($sql);
+
+      // check error
+      if (!$statement) {
+          throw new Exception($statement->error);
+      }
+
+      // run sql query
+      $statement->execute();
+
+      // add result to $result
+      $result = $statement->get_result();
+
+      // if it finds new row add it to returnArray
+      while ($row = $result->fetch_assoc()) {
+          $returnArray[] = $row;
+      }
+      return $returnArray;
+    }
 
 }
 
