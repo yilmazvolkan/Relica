@@ -379,7 +379,28 @@ class access{
         }
         return $returnArray;
     }
+    
+    // Get user info according to username
+    public function selectUserMaileGore($mail) {
 
+        $returnArray = array();
+
+        // sql statement
+        $sql = "SELECT * FROM users WHERE mail='".$mail."'";
+
+        //  Assign result to $result variable
+        $result = $this->conn->query($sql);
+        
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+
+        }
+
+        return $returnArray;
+    }
 }
 
 ?>
