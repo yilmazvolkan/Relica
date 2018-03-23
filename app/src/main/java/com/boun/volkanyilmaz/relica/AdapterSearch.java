@@ -1,6 +1,11 @@
 package com.boun.volkanyilmaz.relica;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +75,36 @@ public class AdapterSearch extends BaseAdapter  {
             Picasso.with(context).load(user.getProfilePath()).into(profileImage);
 
         }
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(context,UserMemoryActivity.class);
+                intent.putExtra("id",user.getId());
+                intent.putExtra("path",user.getProfilePath());
+                intent.putExtra("username",user.getUsername());
+                intent.putExtra("fullname",user.getFullname());
+                intent.putExtra("mail",user.getMail());
+
+                // Check android version for animation
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    View profile = profileImage;
+                    View fullName = fullname;
+                    View userName = username;
+                    Pair<View, String> pairProfileFoto = Pair.create(profile, "profileImage");
+                    Pair<View, String> pairFullname = Pair.create(fullName, "fullname");
+                    Pair<View, String> pairUsername = Pair.create(userName, "username");
+
+                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((AppCompatActivity) context, pairProfileFoto, pairFullname, pairUsername);
+                    context.startActivity(intent, optionsCompat.toBundle());
+
+                }else{
+                    context.startActivity(intent);
+                }
+
+            }
+        });
 
         return layout;
     }

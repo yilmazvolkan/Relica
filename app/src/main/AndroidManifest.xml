@@ -48,13 +48,18 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Relica" />
-
         </activity>
-
         <activity
             android:name=".SearchActivity"
             android:label="Ara"
             android:theme="@style/AppTheme.Base" />
+        <activity
+            android:name=".UserMemoryActivity"
+            android:parentActivityName=".SearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SearchActivity" />
+        </activity>
     </application>
 
 </manifest>
