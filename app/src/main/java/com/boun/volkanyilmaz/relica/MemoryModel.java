@@ -8,11 +8,10 @@ public class MemoryModel {
     private String fullname, username, profilePath, imagePath, memoryText;
     private String date;
     private String uuid;
+    private String id, mail;
 
-    public MemoryModel() {
-        //boş yapıcı metod
+    public MemoryModel() { // Empty constructor
     }
-
 
     public MemoryModel(String fullname, String username, String profilePath, String imagePath, String memoryText, String date) {
         this.fullname = fullname;
@@ -77,5 +76,21 @@ public class MemoryModel {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

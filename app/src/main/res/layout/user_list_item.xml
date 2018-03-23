@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="7dp"
+    android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image_search"
+        android:transitionName="profilImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_person_gray_24dp"  />
+
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:textColor="@color/cardview_dark_background"
+            android:id="@+id/searchFullname"
+            android:transitionName="fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volkan YILMAZ"/>
+
+        <TextView
+            android:id="@+id/searchUsername"
+            android:transitionName="username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="yilmazvolkan"/>
+
+        <TextView
+            android:textColor="@color/colorAccent"
+            android:id="@+id/searchMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="volkan.yilmazboun@gmail.com"/>
+
+    </LinearLayout>
+
+</LinearLayout>

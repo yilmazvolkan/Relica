@@ -50,6 +50,11 @@
                 android:value=".Relica" />
 
         </activity>
+
+        <activity
+            android:name=".SearchActivity"
+            android:label="Ara"
+            android:theme="@style/AppTheme.Base" />
     </application>
 
 </manifest>
