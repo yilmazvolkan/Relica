@@ -341,6 +341,44 @@ class access{
         return $returnArray;
 
     }
+    
+    //Return user info via search operation
+    public function selectUsers($word, $id) {
+
+        //Store all info in database
+        $returnArray = array();
+
+        // If no string is written
+        $sql = "SELECT id, username, mail, fullname, avatar FROM users WHERE NOT id = $id";
+
+        // If a character is written
+        if (!empty($word)) {
+            $sql .= " AND ( username LIKE ? OR fullname LIKE ? )";
+        }
+        $statement = $this->conn->prepare($sql);
+
+        // Error
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // Add paramater when string is written
+        if (!empty($word)) {
+            $word = '%' . $word . '%';
+            $statement->bind_param("ss", $word, $word);
+        }
+
+        // Run sql
+        $statement->execute();
+        $result = $statement->get_result();
+        
+        // Transfer $result to assoc and in each loop assign in $row
+        while ($row = $result->fetch_assoc()) {
+            // When new row exists
+            $returnArray[] = $row;
+        }
+        return $returnArray;
+    }
 
 }
 
