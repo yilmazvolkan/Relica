@@ -6,12 +6,12 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -41,6 +41,11 @@ import java.util.UUID;
 
 public class SendMemory extends AppCompatActivity {
 
+    private static final int ONLY_PICTURE = 1;
+    private static final int ONLY_TEXT = 2;
+    private static final int TEXT_VE_PICTURE = 3;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final String url_memories = "http://10.0.2.2/Relica/memories.php";
     private TextView counter;
     private EditText text;
     private ImageButton imButton;
@@ -50,12 +55,6 @@ public class SendMemory extends AppCompatActivity {
     private SharedPreferences preferences;
     private RequestQueue requestQueue;
     private String id;
-    private static final int ONLY_PICTURE = 1;
-    private static final int ONLY_TEXT = 2;
-    private static final int TEXT_VE_PICTURE = 3;
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private static final String url_memories = "http://10.0.2.2/Relica/memories.php";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

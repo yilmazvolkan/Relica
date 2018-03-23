@@ -35,11 +35,11 @@ import java.util.Map;
  */
 
 public class SearchActivity extends AppCompatActivity {
+    private static final String url = "http://10.0.2.2/TwitterClone/selectusers.php";
     private MaterialSearchView searchView;
     private ListView listView;
     private AdapterSearch adapter;
     private String id;
-    private static final String url = "http://10.0.2.2/TwitterClone/selectusers.php";
     private RequestQueue requestQueue;
     private List<String> recommendation;
     private List<MemoryModel> modelList;
@@ -59,7 +59,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
         recommendation = new ArrayList<>();
-        modelList=new ArrayList<>();
+        modelList = new ArrayList<>();
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -87,7 +87,6 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
-
 
 
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
@@ -174,22 +173,23 @@ public class SearchActivity extends AppCompatActivity {
                         }
 
                     }
-                }else {
+                } else {
                     // If request is failed or empty
                     Snackbar.make(findViewById(R.id.container), message, Snackbar.LENGTH_LONG)
                             .show();
                 }
                 // Transform recommendation array into list
-                String[] recommendationArray = new String[recommendation.size()];;
-                for (int i=0; i<recommendation.size(); i++) {
-                    String s=recommendation.get(i);
-                    recommendationArray[i]=s;
+                String[] recommendationArray = new String[recommendation.size()];
+                ;
+                for (int i = 0; i < recommendation.size(); i++) {
+                    String s = recommendation.get(i);
+                    recommendationArray[i] = s;
                 }
 
                 //searchView.setSuggestions(tavsiyelerArray);
 
                 // Set to adapter
-                adapter=new AdapterSearch(modelList,SearchActivity.this);
+                adapter = new AdapterSearch(modelList, SearchActivity.this);
                 listView.setAdapter(adapter);
 
 

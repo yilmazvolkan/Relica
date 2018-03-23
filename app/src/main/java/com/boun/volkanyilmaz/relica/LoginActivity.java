@@ -41,13 +41,14 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String url_login = "http://10.0.2.2/Relica/login.php";
     private TextInputLayout tilPass, tilUsername;
     private TextInputEditText password, username;
     private CheckBox rememberMe;
     private RequestQueue requestQueue;
-    private static final String url_login = "http://10.0.2.2/Relica/login.php";
     private SharedPreferences preferences;
     private boolean requestSent = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,14 +78,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    public void androidTools(){
-        tilPass =  findViewById(R.id.tilpass);
+
+    public void androidTools() {
+        tilPass = findViewById(R.id.tilpass);
         tilUsername = findViewById(R.id.tiluserName);
-        password =  findViewById(R.id.pass);
-        username =  findViewById(R.id.userName);
+        password = findViewById(R.id.pass);
+        username = findViewById(R.id.userName);
         rememberMe = findViewById(R.id.rememberMe);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
+
     public void animations() {
         setContentView(R.layout.activity_login);
         ImageView image = findViewById(R.id.imageLogin);
@@ -105,7 +108,8 @@ public class LoginActivity extends AppCompatActivity {
         animator.setInterpolator(new LinearInterpolator());
         animator.start();
     }
-    public void onClick(View v){
+
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register:
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
@@ -141,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
         }
     }
+
     private void sendRequest() {
         StringRequest request = new StringRequest(Request.Method.POST, url_login, new Response.Listener<String>() {
             @Override
@@ -190,17 +195,16 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue.add(request);
 
     }
+
     boolean connectionControl() {
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (connectivityManager.getActiveNetworkInfo().isAvailable() &&
                 connectivityManager.getActiveNetworkInfo().isConnected() &&
-                connectivityManager.getActiveNetworkInfo() != null)
-        {
+                connectivityManager.getActiveNetworkInfo() != null) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

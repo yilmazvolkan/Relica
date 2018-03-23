@@ -42,11 +42,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
+    private static final String url_register = "http://10.0.2.2/Relica/register.php"; // Local
     private TextInputLayout tilFullname, tilMail, tilPass, tilUsername;
     private TextInputEditText fullname, mail, password, username;
     private SharedPreferences preferences;
     private RequestQueue requestQueue;
-    private static final String url_register = "http://10.0.2.2/Relica/register.php"; // Local
     private boolean requestSent = false;
 
     @Override
@@ -222,11 +222,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (connectivityManager.getActiveNetworkInfo().isAvailable() &&
                 connectivityManager.getActiveNetworkInfo().isConnected() &&
-                connectivityManager.getActiveNetworkInfo() != null)
-        {
+                connectivityManager.getActiveNetworkInfo() != null) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

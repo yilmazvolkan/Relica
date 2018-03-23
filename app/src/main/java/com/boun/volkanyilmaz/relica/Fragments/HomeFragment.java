@@ -109,8 +109,7 @@ public class HomeFragment extends Fragment {
 
                     if (modelList.size() == 0) {
                         textView.setText("No memories are found...");
-                    }
-                    else{
+                    } else {
                         for (int i = 0; i < memories.length(); i++) {
                             JSONObject memory;
                             MemoryModel model = new MemoryModel();
@@ -161,7 +160,7 @@ public class HomeFragment extends Fragment {
 
     private void setAdapter() {
 
-        Adapter adapter=new Adapter(context,modelList,true);
+        Adapter adapter = new Adapter(context, modelList, true);
         listView.setAdapter(adapter);
     }
 

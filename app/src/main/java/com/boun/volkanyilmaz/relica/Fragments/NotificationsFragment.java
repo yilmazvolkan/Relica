@@ -9,14 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class NotificationsFragment extends Fragment{
+public class NotificationsFragment extends Fragment {
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        TextView view=new TextView(getContext());
+        TextView view = new TextView(getContext());
         view.setText("Notifications Fragment");
         view.setTextSize(30);
         view.setGravity(Gravity.CENTER);

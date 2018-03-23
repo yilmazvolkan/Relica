@@ -12,15 +12,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/icon"
-        app:civ_border_width="1dp"
-        app:civ_border_color="#FFF"/>
+        app:civ_border_color="#FFF"
+        app:civ_border_width="1dp" />
 
     <TextView
         android:id="@+id/fullname"
@@ -28,14 +27,14 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:text="Deneme"
-        android:textColor="#fff"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#fff" />
 
     <TextView
         android:id="@+id/mail"
-        android:textColor="#fff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="deneme@gmail.com" />
+        android:text="deneme@gmail.com"
+        android:textColor="#fff" />
 
 </LinearLayout>

@@ -23,19 +23,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by volkanyilmaz on 23/03/18.
  */
 
-public class AdapterSearch extends BaseAdapter  {
+public class AdapterSearch extends BaseAdapter {
 
     private List<MemoryModel> modelList;
     private Context context;
 
-    public AdapterSearch(List<MemoryModel> modelList,Context context) {
-        this.modelList=modelList;
-        this.context=context;
+    public AdapterSearch(List<MemoryModel> modelList, Context context) {
+        this.modelList = modelList;
+        this.context = context;
     }
 
     @Override
     public int getCount() {
-        if (modelList.size()==0)
+        if (modelList.size() == 0)
             return 0;
 
         return modelList.size();
@@ -43,7 +43,7 @@ public class AdapterSearch extends BaseAdapter  {
 
     @Override
     public Object getItem(int position) {
-        if (modelList.size()==0)
+        if (modelList.size() == 0)
             return null;
         return modelList.get(position);
     }
@@ -70,8 +70,7 @@ public class AdapterSearch extends BaseAdapter  {
         username.setText(user.getUsername());
         mail.setText(user.getMail());
 
-        if (!user.getProfilePath().equals(""))
-        {
+        if (!user.getProfilePath().equals("")) {
             Picasso.with(context).load(user.getProfilePath()).into(profileImage);
 
         }
@@ -80,12 +79,12 @@ public class AdapterSearch extends BaseAdapter  {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(context,UserMemoryActivity.class);
-                intent.putExtra("id",user.getId());
-                intent.putExtra("path",user.getProfilePath());
-                intent.putExtra("username",user.getUsername());
-                intent.putExtra("fullname",user.getFullname());
-                intent.putExtra("mail",user.getMail());
+                Intent intent = new Intent(context, UserMemoryActivity.class);
+                intent.putExtra("id", user.getId());
+                intent.putExtra("path", user.getProfilePath());
+                intent.putExtra("username", user.getUsername());
+                intent.putExtra("fullname", user.getFullname());
+                intent.putExtra("mail", user.getMail());
 
                 // Check android version for animation
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -99,7 +98,7 @@ public class AdapterSearch extends BaseAdapter  {
                     ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((AppCompatActivity) context, pairProfileFoto, pairFullname, pairUsername);
                     context.startActivity(intent, optionsCompat.toBundle());
 
-                }else{
+                } else {
                     context.startActivity(intent);
                 }
 

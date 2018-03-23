@@ -22,8 +22,8 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMode="fixed"
-            app:tabGravity="fill"/>
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -35,10 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:borderWidth="0dp"
-        app:backgroundTint="@android:color/holo_green_dark"
-        app:layout_anchorGravity="bottom|right|end"
         android:clickable="true"
-        android:src="@drawable/post_icon" />
+        android:src="@drawable/post_icon"
+        app:backgroundTint="@android:color/holo_green_dark"
+        app:borderWidth="0dp"
+        app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>

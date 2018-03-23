@@ -1,9 +1,7 @@
 package com.boun.volkanyilmaz.relica;
 
 import android.content.Context;
-
 import android.support.v7.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
-
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,14 +26,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by volkanyilmaz on 13/03/18.
  */
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private List<MemoryModel> modelList;
     private Context context;
 
-    public MyAdapter(List<MemoryModel> modelList,Context c) {
+    public MyAdapter(List<MemoryModel> modelList, Context c) {
         this.modelList = modelList;
-        this.context=c;
+        this.context = c;
 
     }
 
@@ -51,7 +47,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
         ViewHolder vh = new ViewHolder(rootView);
         return vh;
     }
-
 
 
     @Override
@@ -69,52 +64,51 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
         if (!memory.getImagePath().equals("")) {
             //Picasso
             Picasso.with(context).load(memory.getImagePath()).into(holder.imImageView);
-            Log.d("Path cannot be null::",String.valueOf(position));
+            Log.d("Path cannot be null::", String.valueOf(position));
 
             //Volley
-            ImageLoader.ImageCache imageCache = new BitmapLruCache ();
-            ImageLoader imageLoader = new ImageLoader (Volley.newRequestQueue(context),imageCache);
-            holder.imageView.setImageUrl (memory.getImagePath(),imageLoader);
-            holder.imageView.setDefaultImageResId (R.drawable.icon);
-            holder.imageView.setErrorImageResId (R.drawable.icon);
+            ImageLoader.ImageCache imageCache = new BitmapLruCache();
+            ImageLoader imageLoader = new ImageLoader(Volley.newRequestQueue(context), imageCache);
+            holder.imageView.setImageUrl(memory.getImagePath(), imageLoader);
+            holder.imageView.setDefaultImageResId(R.drawable.icon);
+            holder.imageView.setErrorImageResId(R.drawable.icon);
         }
 
 
-        Date present=new Date();
+        Date present = new Date();
 
-        DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date=null;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
         try {
-            date=df.parse(memory.getDate());
+            date = df.parse(memory.getDate());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        int differ= (int) (present.getTime()-date.getTime());
+        int differ = (int) (present.getTime() - date.getTime());
 
-        int day = differ/(1000*60*60*24);
-        int hour = differ/(1000*60*60);
-        int minute = differ/(1000*60);
-        int second = differ/(1000);
+        int day = differ / (1000 * 60 * 60 * 24);
+        int hour = differ / (1000 * 60 * 60);
+        int minute = differ / (1000 * 60);
+        int second = differ / (1000);
 
-        if (second==0)
+        if (second == 0)
             holder.dateTv.setText("present");
 
-        if (second>0 && minute==0)
-            holder.dateTv.setText(second+"s");
+        if (second > 0 && minute == 0)
+            holder.dateTv.setText(second + "s");
 
-        if (minute>0 && hour==0)
-            holder.dateTv.setText(minute+"min");
+        if (minute > 0 && hour == 0)
+            holder.dateTv.setText(minute + "min");
 
-        if (hour>0 && day==0)
-            holder.dateTv.setText(hour+"h");
+        if (hour > 0 && day == 0)
+            holder.dateTv.setText(hour + "h");
 
-        if (day>0)
-            holder.dateTv.setText(day+"day");
+        if (day > 0)
+            holder.dateTv.setText(day + "day");
 
 
-        Log.d("position:::::::: ",String.valueOf(position));
-
+        Log.d("position:::::::: ", String.valueOf(position));
 
 
     }

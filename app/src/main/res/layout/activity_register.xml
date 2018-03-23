@@ -2,21 +2,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootRegister"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.boun.volkanyilmaz.relica.RegisterActivity"
-    android:id="@+id/rootRegister">
+    tools:context="com.boun.volkanyilmaz.relica.RegisterActivity">
+
     <ImageView
-        android:src="@drawable/background"
+        android:id="@+id/imageRegister"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageRegister"/>
+        android:src="@drawable/background" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="280dp"
             android:layout_height="460dp"
             android:layout_marginBottom="8dp"
@@ -27,8 +29,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.19999999"
-            android:id="@+id/frameLayout">
+            app:layout_constraintVertical_bias="0.19999999">
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -41,6 +42,7 @@
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -65,8 +67,7 @@
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilfullnameReg"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            >
+                            android:layout_height="wrap_content">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/fullnameReg"
@@ -81,8 +82,7 @@
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilmailReg"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            >
+                            android:layout_height="wrap_content">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/mailReg"
@@ -96,8 +96,7 @@
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilusernameReg"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            >
+                            android:layout_height="wrap_content">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/usernameReg"
@@ -110,10 +109,9 @@
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/tilpassReg"
-                            app:passwordToggleEnabled="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            >
+                            app:passwordToggleEnabled="true">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/passReg"
@@ -147,13 +145,13 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="You have already an account."
             android:textColor="#fff"
             android:textSize="20dp"
-            android:text="You have already an account."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
 

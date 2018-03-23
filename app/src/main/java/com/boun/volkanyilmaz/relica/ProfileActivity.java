@@ -34,10 +34,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
-    private String id;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private Bitmap bitmap;
     private static final String url_profile_update = "http://10.0.2.2/Relica/addPp.php";
+    private String id;
+    private Bitmap bitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
     public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -127,9 +129,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if (durum.equals("200")) {
                     Snackbar.make(findViewById(R.id.containerProfile), message, Snackbar.LENGTH_LONG).show();
-                    SharedPreferences p= PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
-                    SharedPreferences.Editor editor=p.edit();
-                    editor.putBoolean("ProfileChanged",true);
+                    SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
+                    SharedPreferences.Editor editor = p.edit();
+                    editor.putBoolean("ProfileChanged", true);
                     editor.commit();
                 } else {
                     Snackbar.make(findViewById(R.id.containerProfile), message, Snackbar.LENGTH_LONG).show();

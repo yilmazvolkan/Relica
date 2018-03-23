@@ -1,5 +1,7 @@
 package com.boun.volkanyilmaz.relica;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -19,9 +21,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,6 +57,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Relica extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String url_profile_info = "http://10.0.2.2/Relica/profileInfo.php";
     private TextView fullname, mail;
     private CircleImageView profileFoto;
     private TabLayout tabLayout;
@@ -60,7 +69,6 @@ public class Relica extends AppCompatActivity
             R.drawable.ic_forum_24dp
     };
     private SharedPreferences preferences;
-    private static final String url_profile_info = "http://10.0.2.2/Relica/profileInfo.php";
 
     @Override
     protected void onResume() {  // To control navigator menu profile changes
@@ -77,6 +85,72 @@ public class Relica extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relica);
+
+        // Check whether user comes from login or not
+        boolean loginAcCheck = getIntent().getBooleanExtra("animation", false);
+        if (loginAcCheck) {
+            // CREATE ANIMATION
+            final LinearLayout view = new LinearLayout(Relica.this);
+            ImageView icon = new ImageView(Relica.this);
+            view.setGravity(Gravity.CENTER);
+            view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            icon.setImageResource(R.drawable.launch_icon);
+
+            // Width and height for icon and add to view object
+            view.addView(icon, 250, 250);
+            getWindow().addContentView(view, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+
+
+            Animation scaleAnim = AnimationUtils.loadAnimation(Relica.this, R.anim.launch_animation);
+            icon.clearAnimation();
+            icon.startAnimation(scaleAnim);
+
+            scaleAnim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.0f);
+                    animator.setDuration(300);
+                    animator.setInterpolator(new LinearInterpolator());
+                    animator.start();
+                    animator.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            // After animation is finished this view ends
+                            view.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            //-----------End of the animation operation-----------------
+        }
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -95,7 +169,7 @@ public class Relica extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView =  findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         viewPager = findViewById(R.id.viewpager);
@@ -269,7 +343,7 @@ public class Relica extends AppCompatActivity
         });
         Picasso pic = builder.build();
 
-        if (!avatar.equals("")){
+        if (!avatar.equals("")) {
             pic.load(avatar).into(profileFoto);
         }
 
@@ -278,8 +352,6 @@ public class Relica extends AppCompatActivity
         this.mail.setText(mail);
 
     }
-
-
 
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -293,10 +365,10 @@ public class Relica extends AppCompatActivity
 
         @Override
         public Fragment getItem(int position) {
-            if (position==0){
-                Fragment fragment=mFragmentList.get(position);
-                Bundle bundle=new Bundle();
-                bundle.putString("id",id);
+            if (position == 0) {
+                Fragment fragment = mFragmentList.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", id);
                 fragment.setArguments(bundle);
                 return fragment;
             }
