@@ -14,7 +14,7 @@
              alt="PHP">
     </a>
     <a href="https://github.com/yilmazvolkan/Relica/issues?q=is%3Aissue+is%3Aclosed">
-        <img src="https://img.shields.io/badge/ISSUES 37-CLOSED-931926.svg"
+        <img src="https://img.shields.io/badge/ISSUES 43-CLOSED-931926.svg"
              alt="Issues">
     </a>
 </p>
