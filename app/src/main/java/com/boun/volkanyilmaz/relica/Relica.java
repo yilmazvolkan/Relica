@@ -267,7 +267,11 @@ public class Relica extends AppCompatActivity
             }
         });
         Picasso pic = builder.build();
-        pic.load(avatar).into(profileFoto);
+
+        if (!avatar.equals("")){
+            pic.load(avatar).into(profileFoto);
+        }
+
 
         this.fullname.setText(fullname);
         this.mail.setText(mail);

@@ -107,24 +107,30 @@ public class HomeFragment extends Fragment {
                 //success
                 if (status.equals("200")) {
 
-                    for (int i = 0; i < memories.length(); i++) {
-                        JSONObject memory;
-                        MemoryModel model = new MemoryModel();
-                        try {
-                            memory = memories.getJSONObject(i);
-                            model.setFullname(memory.getString("fullname"));
-                            model.setUsername(memory.getString("username"));
-                            model.setProfilePath(memory.getString("avatar"));
-                            model.setImagePath(memory.getString("path"));
-                            model.setMemoryText(memory.getString("text"));
-                            model.setDate(memory.getString("date"));
-                            model.setUuid(memory.getString("uuid"));
-                        } catch (JSONException e) {
-                            Log.e("json parse error", e.getLocalizedMessage());
+                    if (modelList.size() == 0) {
+                        textView.setText("No memories are found...");
+                    }
+                    else{
+                        for (int i = 0; i < memories.length(); i++) {
+                            JSONObject memory;
+                            MemoryModel model = new MemoryModel();
+                            try {
+                                memory = memories.getJSONObject(i);
+                                model.setFullname(memory.getString("fullname"));
+                                model.setUsername(memory.getString("username"));
+                                model.setProfilePath(memory.getString("avatar"));
+                                model.setImagePath(memory.getString("path"));
+                                model.setMemoryText(memory.getString("text"));
+                                model.setDate(memory.getString("date"));
+                                model.setUuid(memory.getString("uuid"));
+                            } catch (JSONException e) {
+                                Log.e("json parse error", e.getLocalizedMessage());
+                            }
+
+                            modelList.add(model);
+
                         }
-
-                        modelList.add(model);
-
+                        setAdapter();
                     }
 
                 } else {
@@ -132,11 +138,6 @@ public class HomeFragment extends Fragment {
                     Snackbar.make(listView, message, Snackbar.LENGTH_LONG).show();
                 }
                 Log.d("Volley operations test", "request operations completed.........................");
-                if (modelList == null) {
-                    textView.setText("No memories can be found...");
-                } else {
-                    setAdapter();
-                }
 
             }
         }, new Response.ErrorListener() {

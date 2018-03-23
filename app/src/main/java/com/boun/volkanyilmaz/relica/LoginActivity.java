@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private static final String url_login = "http://10.0.2.2/Relica/login.php";
     private SharedPreferences preferences;
+    private boolean requestSent = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,8 +130,11 @@ public class LoginActivity extends AppCompatActivity {
                     if (!connectionControl()) {
                         Snackbar.make(findViewById(R.id.rootLogin), "Check your connection!", Snackbar.LENGTH_LONG).show();
                     } else {
-                        findViewById(R.id.fabLogin).setEnabled(false);
-                        sendRequest();
+                        if (!requestSent) {
+                            requestSent = true;
+                            sendRequest();
+                        }
+
                     }
 
                     break;
@@ -142,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d("Json data", response); // Check json data in log
+                requestSent = false;
 
                 try {
                     JSONObject json = new JSONObject(response);

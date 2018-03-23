@@ -41,5 +41,4 @@
         android:clickable="true"
         android:src="@drawable/post_icon" />
 
-
 </android.support.design.widget.CoordinatorLayout>

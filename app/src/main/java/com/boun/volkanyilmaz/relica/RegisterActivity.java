@@ -47,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private RequestQueue requestQueue;
     private static final String url_register = "http://10.0.2.2/Relica/register.php"; // Local
+    private boolean requestSent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +113,10 @@ public class RegisterActivity extends AppCompatActivity {
                     if (!connectionControl()) {
                         Snackbar.make(findViewById(R.id.rootRegister), "Check your connection!", Snackbar.LENGTH_LONG).show();
                     } else {
-                        sendRequest();
+                        if (!requestSent) {
+                            requestSent = true;
+                            sendRequest();
+                        }
                     }
 
                 }
@@ -168,8 +172,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                     if (status.equals("404")) {
                         Snackbar.make(findViewById(R.id.rootRegister), "Connection failed.", Snackbar.LENGTH_LONG).show();
+                        requestSent = false;
                     } else if (status.equals("400")) {
                         Snackbar.make(findViewById(R.id.rootRegister), "Registration unsuccessful. Username is already exist.", Snackbar.LENGTH_LONG).show();
+                        requestSent = false;
                     } else if (status.equals("200")) {
                         //preferences.edit().putString("id", id).commit(); we need to verification of email
                         new AlertDialog.Builder(RegisterActivity.this)
