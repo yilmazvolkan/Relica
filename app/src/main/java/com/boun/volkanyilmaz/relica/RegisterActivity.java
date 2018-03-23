@@ -48,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private RequestQueue requestQueue;
     private boolean requestSent = false;
+    private ObjectAnimator animator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (isMail)
                         tilMail.setError("Please write your mail.");
                     else if (!mail.getText().toString().contains("@"))
-                        tilMail.setError("Mail adress is not valid!");
+                        tilMail.setError("Mail address is not valid!");
 
                 } else {
                     if (!connectionControl()) {
@@ -153,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
         image.getLayoutParams().width = (int) (yuksek * 2.752);
         image.getLayoutParams().height = yuksek;
 
-        ObjectAnimator animator = ObjectAnimator.ofFloat(image, "x", 0, -(yuksek * 2.752f - genis), 0, -(yuksek * 2.752f - genis));
+        animator = ObjectAnimator.ofFloat(image, "x", 0, -(yuksek * 2.752f - genis), 0, -(yuksek * 2.752f - genis));
         animator.setDuration(210000);
         animator.setInterpolator(new LinearInterpolator());
         animator.start();
@@ -227,5 +228,30 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (animator != null)
+            animator.pause();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (animator.isPaused())
+            animator.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (animator != null)
+            animator.cancel();
     }
 }

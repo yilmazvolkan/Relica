@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private SharedPreferences preferences;
     private boolean requestSent = false;
+    private ObjectAnimator animator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +59,15 @@ public class LoginActivity extends AppCompatActivity {
         animations();
         //If remember me is active, pass to new activity
         if (preferences.getBoolean("rememberMe", false)) {
-            startActivity(new Intent(LoginActivity.this, Relica.class));
+            Intent intent=new Intent(LoginActivity.this, Relica.class);
+            intent.putExtra("animasyon",true);
+            startActivity(intent);
             LoginActivity.this.finish();
         }
         if (!connectionControl()) {
             Snackbar.make(findViewById(R.id.rootLogin), "Check your connection!", Snackbar.LENGTH_LONG).show();
         }
+
         findViewById(R.id.textView).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -74,7 +78,14 @@ public class LoginActivity extends AppCompatActivity {
                 if (event.getAction() == MotionEvent.ACTION_UP)
                     ((TextView) v).setTextColor(Color.WHITE);
 
-                return true;
+                return false;
+            }
+        });
+
+        findViewById(R.id.textView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,ForgetPasswordActivity.class));
             }
         });
     }
@@ -103,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         image.getLayoutParams().width = (int) (yuksek * 2.752);
         image.getLayoutParams().height = yuksek;
 
-        ObjectAnimator animator = ObjectAnimator.ofFloat(image, "x", 0, -(yuksek * 2.752f - genis), 0, -(yuksek * 2.752f - genis));
+        animator = ObjectAnimator.ofFloat(image, "x", 0, -(yuksek * 2.752f - genis), 0, -(yuksek * 2.752f - genis));
         animator.setDuration(210000);
         animator.setInterpolator(new LinearInterpolator());
         animator.start();
@@ -163,7 +174,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("id", json.getString("id"));
                         editor.putBoolean("rememberMe", rememberMe.isChecked());
                         editor.commit();
-                        //ana ekrana geçiş
+                        // Pass to home page
                         startActivity(new Intent(LoginActivity.this, Relica.class));
                         LoginActivity.this.finish();
 
@@ -207,5 +218,30 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (animator!=null)
+            animator.pause();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (animator.isPaused())
+            animator.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (animator!=null)
+            animator.cancel();
     }
 }
