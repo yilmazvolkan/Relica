@@ -161,7 +161,7 @@ public class HomeFragment extends Fragment {
 
     private void setAdapter() {
 
-        Adapter adapter=new Adapter(context,modelList);
+        Adapter adapter=new Adapter(context,modelList,true);
         listView.setAdapter(adapter);
     }
 

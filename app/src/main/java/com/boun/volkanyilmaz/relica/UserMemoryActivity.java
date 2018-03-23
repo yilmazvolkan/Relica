@@ -31,13 +31,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserMemoryActivity extends AppCompatActivity {
 
 
-    private TextView fullname,username,mail;
+    private TextView fullname, username, mail;
     private ListView listView;
     private String id;
     private RequestQueue requestQueue;
     private CircleImageView profileFoto;
     private List<MemoryModel> modelList;
-    private String url = "http://10.0.2.2/TwitterClone/getTweetler.php";
+    private String url = "http://10.0.2.2/Relica/getMemories.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +51,14 @@ public class UserMemoryActivity extends AppCompatActivity {
         this.profileFoto = findViewById(R.id.profile_image_user);
         this.listView = findViewById(R.id.userMemoriesList);
         this.requestQueue = Volley.newRequestQueue(getApplicationContext());
-        modelList=new ArrayList<>();
+        modelList = new ArrayList<>();
 
         Bundle arguments = getIntent().getExtras();
-        String path=arguments.getString("path","");
-        String fullname = arguments.getString("fullname","");
-        String username = arguments.getString("username","");
-        String mail = arguments.getString("mail","");
-        this.id = arguments.getString("id","-1");
+        String path = arguments.getString("path", "");
+        String fullname = arguments.getString("fullname", "");
+        String username = arguments.getString("username", "");
+        String mail = arguments.getString("mail", "");
+        this.id = arguments.getString("id", "-1");
 
         this.fullname.setText(fullname);
         this.username.setText(username);
@@ -91,12 +91,12 @@ public class UserMemoryActivity extends AppCompatActivity {
                 }
 
 
-                //herşey yolundaysa
+                // Everythings fine
                 if (status.equals("200")) {
 
-                    if (memories.length()==0) {
-                        Snackbar.make(listView,"No memory is found..." , Snackbar.LENGTH_LONG).show();
-                    }else {
+                    if (memories.length() == 0) {
+                        Snackbar.make(listView, "No memory is found...", Snackbar.LENGTH_LONG).show();
+                    } else {
 
                         for (int i = 0; i < memories.length(); i++) {
                             JSONObject memory;
@@ -118,21 +118,17 @@ public class UserMemoryActivity extends AppCompatActivity {
 
                         }
 
-                        Adapter adapter=new Adapter(UserMemoryActivity.this, modelList);
+                        Adapter adapter = new Adapter(UserMemoryActivity.this, modelList, false);
                         listView.setAdapter(adapter);
 
 
                     }
 
 
-
-                }
-
-                else {
-                    //request başarısız ise
+                } else {
+                    // Request failed
                     Snackbar.make(listView, message, Snackbar.LENGTH_LONG).show();
                 }
-
 
 
             }
@@ -152,5 +148,5 @@ public class UserMemoryActivity extends AppCompatActivity {
 
 
         requestQueue.add(request);
-    }//istekGonder metodu sonu
+    }
 }

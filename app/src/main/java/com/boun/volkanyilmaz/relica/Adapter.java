@@ -46,15 +46,17 @@ public class Adapter extends BaseAdapter {
 
     private Context context;
     private List<MemoryModel> modelList;
+    private boolean delete;
 
-    public Adapter(Context context, List<MemoryModel> modelList) {
-        this.modelList=modelList;
-        this.context=context;
+    public Adapter(Context context, List<MemoryModel> modelList, boolean delete) {
+        this.modelList = modelList;
+        this.context = context;
+        this.delete = delete;
     }
 
     @Override
     public int getCount() {
-        if (modelList==null)
+        if (modelList == null)
             return 0;
 
         return modelList.size();
@@ -72,10 +74,10 @@ public class Adapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (modelList==null)
+        if (modelList == null)
             return null;
 
-        final LinearLayout layout= (LinearLayout) LayoutInflater.from(context).inflate(R.layout.memory_list_item,parent,false);
+        final LinearLayout layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.memory_list_item, parent, false);
 
         TextView fullname = layout.findViewById(R.id.textView7);
         TextView username = layout.findViewById(R.id.textView6);
@@ -97,65 +99,66 @@ public class Adapter extends BaseAdapter {
             Picasso.with(context).load(memory.getImagePath()).into(imImageView);
 
 
-        Date present=new Date();
+        Date present = new Date();
 
-        DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date=null;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
         try {
-            date=df.parse(memory.getDate());
+            date = df.parse(memory.getDate());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        int differ= (int) (present.getTime()-date.getTime());
+        int differ = (int) (present.getTime() - date.getTime());
 
-        int day = differ/(1000*60*60*24);
-        int hour = differ/(1000*60*60);
-        int minute = differ/(1000*60);
-        int second = differ/(1000);
+        int day = differ / (1000 * 60 * 60 * 24);
+        int hour = differ / (1000 * 60 * 60);
+        int minute = differ / (1000 * 60);
+        int second = differ / (1000);
 
-        if (second==0)
+        if (second == 0)
             dateTv.setText("present");
 
-        if (second>0 && minute==0)
-            dateTv.setText(second+"s");
+        if (second > 0 && minute == 0)
+            dateTv.setText(second + "s");
 
-        if (minute>0 && hour==0)
-            dateTv.setText(minute+"min");
+        if (minute > 0 && hour == 0)
+            dateTv.setText(minute + "min");
 
-        if (hour>0 && day==0)
-            dateTv.setText(hour+"h");
+        if (hour > 0 && day == 0)
+            dateTv.setText(hour + "h");
 
-        if (day>0)
-            dateTv.setText(day+"day");
-
-        layout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                layout.setAlpha(.5f);
-                new AlertDialog.Builder(context)
-                        .setTitle("Delete memory")
-                        .setMessage("Are you sure to delete your memory?")
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                sendRequestDelete(position, memory.getUuid(), layout);
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                layout.setAlpha(1);
-                            }
-                        }).show();
-                return false;
-            }
-        });
+        if (day > 0)
+            dateTv.setText(day + "day");
+        if (delete) {
+            layout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    layout.setAlpha(.5f);
+                    new AlertDialog.Builder(context)
+                            .setTitle("Delete memory")
+                            .setMessage("Are you sure to delete your memory?")
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    sendRequestDelete(position, memory.getUuid(), layout);
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    layout.setAlpha(1);
+                                }
+                            }).show();
+                    return false;
+                }
+            });
+        }
         return layout;
     }
 
-    private void sendRequestDelete(final int position, final String uuid, final View layout){
+    private void sendRequestDelete(final int position, final String uuid, final View layout) {
         final ProgressDialog loading = ProgressDialog.show(context, "Memories are loading...", "Please wait...", false, false);
         StringRequest request = new StringRequest(Request.Method.POST, "http://10.0.2.2/Relica/deleteMemory.php", new Response.Listener<String>() {
             @Override
@@ -196,8 +199,8 @@ public class Adapter extends BaseAdapter {
                 Map<String, String> params = new HashMap<>();
                 params.put("uuid", uuid);
 
-                if (!modelList.get(position).getImagePath().equals("")){
-                    params.put("path",modelList.get(position).getImagePath());
+                if (!modelList.get(position).getImagePath().equals("")) {
+                    params.put("path", modelList.get(position).getImagePath());
                 }
                 return params;
             }
