@@ -32,13 +32,26 @@ class email{
         return $sablon;
 
     }
-    function sendEmail($detay) {
+    function resetPassTemplate() {
 
-        $subject = $detay["subject"]; //subject
-        $whom = $detay["whom"]; //to
-        $fromName = $detay["fromName"]; //gönderici ismi
-        $fromEmail = $detay["fromEmail"]; //gönderici mail adresi
-        $body = $detay["body"]; //gövde
+        // Open file in the main project folder
+        $file = fopen("templates/resetPasswordTemplate.html", "r") or die("File openning failed.");
+
+        // Save content in $template
+        $sablon = fread($file, filesize("templates/resetPasswordTemplate.html"));
+
+        fclose($file);
+
+        return $sablon;
+
+    }
+    function sendEmail($details) {
+
+        $subject = $details["subject"]; //subject
+        $whom = $details["whom"]; //to
+        $fromName = $details["fromName"]; //sender name
+        $fromEmail = $details["fromEmail"]; //sender mail
+        $body = $details["body"]; //body
 
         // Headers
         $headers = "MIME-Version: 1.0" . "\r\n";
