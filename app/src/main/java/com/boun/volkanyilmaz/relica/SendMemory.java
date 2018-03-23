@@ -79,8 +79,8 @@ public class SendMemory extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                int i = 280 - start;
+                //int i = 280 - s.length(); // If space will be counted as chars
+                int i = 280 - s.toString().trim().length();
                 counter.setText(String.valueOf(i));
 
                 if (i < 0) {

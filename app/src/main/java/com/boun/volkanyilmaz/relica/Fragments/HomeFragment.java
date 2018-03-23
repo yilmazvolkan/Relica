@@ -1,6 +1,5 @@
 package com.boun.volkanyilmaz.relica.Fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -86,11 +85,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void sendRequest() {
-        final ProgressDialog loading = ProgressDialog.show(context, "Memories are loading...", "Please wait...", false, false);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                loading.dismiss();
                 Log.d("Json data Memories: ", response);
 
                 String status = null, message = null;
@@ -142,7 +139,6 @@ public class HomeFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                loading.dismiss();
             }
         }) {
             @Override
