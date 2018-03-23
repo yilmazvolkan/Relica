@@ -59,7 +59,12 @@ class email{
         $headers .= "From: " . $fromName . " <" . $fromEmail . ">" . "\r\n";
 
         // Send email
-        mail($whom, $subject, $body, $headers);
+        if(mail($whom, $subject, $body, $headers){
+            return "Mail sent";
+        }
+        else{
+        	return "Mail send is failed";
+        }
     }
     
     function sendEmailPhpMailer($detay){
@@ -88,9 +93,9 @@ class email{
 
 
         if (!$mail->Send()) {
-            //echo "Error: " . $mail->ErrorInfo;
+            return "Mailer error: " . $mail->ErrorInfo;
         } else {
-            //echo "Mail sent!";
+            return "Mail succesfully sent!";
         }
 
     }
