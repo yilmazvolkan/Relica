@@ -27,7 +27,7 @@
             android:theme="@style/FullScreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".RegisterActivity" />
+                android:value=".LoginActivity" />
         </activity>
         <activity
             android:name=".Relica"
