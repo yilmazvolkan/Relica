@@ -406,7 +406,7 @@ class access{
     public function  resetPassword($id, $safe_password, $salt){
 
 
-        $sql = "UPDATE kisiler SET password=?, salt_password=? WHERE id=?";
+        $sql = "UPDATE kisiler SET password=?, salt=? WHERE id=?";
         $statement = $this->conn->prepare($sql);
 
         if (!$statement) {
