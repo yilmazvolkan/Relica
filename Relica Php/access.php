@@ -401,6 +401,24 @@ class access{
 
         return $returnArray;
     }
+    
+    // Reset password
+    public function  resetPassword($id, $safe_password, $salt){
+
+
+        $sql = "UPDATE kisiler SET password=?, salt_password=? WHERE id=?";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->bind_param("ssi",$safe_password, $salt, $id);
+
+        $returnValue = $statement->execute();
+
+        return $returnValue;
+    }
 }
 
 ?>
