@@ -73,7 +73,7 @@ if ($result){
 }else {
 
     $returnArray["status"] = "400";
-    $returnArray["message"] = "Registration failed. Username is already exist.";
+    $returnArray["message"] = "Registration failed. Username or e-mail is already exist.";
 
 }
 
