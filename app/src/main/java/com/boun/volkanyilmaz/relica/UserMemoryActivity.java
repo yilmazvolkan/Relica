@@ -90,9 +90,7 @@ public class UserMemoryActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-                // Everythings fine
+                // No error
                 if (status.equals("200")) {
 
                     if (memories.length() == 0) {
