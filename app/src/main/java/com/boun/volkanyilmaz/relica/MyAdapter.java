@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -58,13 +60,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.textTv.setText(memory.getMemoryText());
         holder.username.setText(memory.getUsername());
 
-        if (!memory.getProfilePath().equals(""))
-            Picasso.with(context).load(memory.getProfilePath()).into(holder.circleImageView);
+        if (!memory.getProfilePath().equals("")){
+            Picasso.get()
+                    .load(memory.getProfilePath())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .resize(60, 60)
+                    .centerCrop()
+                    .into(holder.circleImageView);
+        }
 
         if (!memory.getImagePath().equals("")) {
-            //Picasso
-            Picasso.with(context).load(memory.getImagePath()).into(holder.imImageView);
-            Log.d("Path cannot be null::", String.valueOf(position));
+            Picasso.get().load(memory.getImagePath()).into(holder.imImageView);
+            Log.d("Path cannot be null:", String.valueOf(position));
 
             //Volley
             ImageLoader.ImageCache imageCache = new BitmapLruCache();

@@ -43,6 +43,8 @@ import com.android.volley.toolbox.Volley;
 import com.boun.volkanyilmaz.relica.Fragments.HomeFragment;
 import com.boun.volkanyilmaz.relica.Fragments.MessagesFragment;
 import com.boun.volkanyilmaz.relica.Fragments.NotificationsFragment;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -343,9 +345,16 @@ public class Relica extends AppCompatActivity
         });
         Picasso pic = builder.build();
 
-        if (!avatar.equals("")) {
-            pic.load(avatar).into(profileFoto);
+        if (!avatar.equals("")){
+            Picasso.get()
+                    .load(avatar)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .resize(70, 70)
+                    .centerCrop()
+                    .into(profileFoto);
         }
+
 
 
         this.fullname.setText(fullname);

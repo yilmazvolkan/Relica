@@ -13,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -71,8 +73,13 @@ public class AdapterSearch extends BaseAdapter {
         mail.setText(user.getMail());
 
         if (!user.getProfilePath().equals("")) {
-            Picasso.with(context).load(user.getProfilePath()).into(profileImage);
-
+            Picasso.get()
+                    .load(user.getProfilePath())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .resize(60, 60)
+                    .centerCrop()
+                    .into(profileImage);
         }
 
         layout.setOnClickListener(new View.OnClickListener() {

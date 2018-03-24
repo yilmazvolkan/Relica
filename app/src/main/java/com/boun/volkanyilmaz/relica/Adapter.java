@@ -23,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -93,10 +95,17 @@ public class Adapter extends BaseAdapter {
         username.setText(memory.getUsername());
 
         if (!memory.getProfilePath().equals(""))
-            Picasso.with(context).load(memory.getProfilePath()).into(circleImageView);
-
+        {
+            Picasso.get()
+                    .load(memory.getProfilePath())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .resize(60, 60)
+                    .centerCrop()
+                    .into(circleImageView);
+        }
         if (!memory.getImagePath().equals(""))
-            Picasso.with(context).load(memory.getImagePath()).into(imImageView);
+            Picasso.get().load(memory.getImagePath()).into(imImageView);
 
 
         Date present = new Date();

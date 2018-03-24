@@ -66,7 +66,8 @@ public class UserMemoryActivity extends AppCompatActivity {
         this.fullname.setText(fullname);
 
         if (!path.equals(""))
-            Picasso.with(getApplicationContext()).load(path).into(profileFoto);
+            Picasso.get().load(path).into(profileFoto);
+
         sendRequest();
 
     }
